@@ -30,15 +30,24 @@ namespace VideoKallAPI.Controllers
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
+        
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _context.Users.FindAsync(id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                return user;
+            }
+            catch (Exception ex ){
+                throw ex; 
             }
 
-            return user;
+
         }
 
         // PUT: api/Users/5
